@@ -1,5 +1,5 @@
 const config = {
-  projectName: 'mnb',
+  projectName: 'mmm',
   date: '2021-5-11',
   designWidth: 750,
   deviceRatio: {
@@ -18,7 +18,7 @@ const config = {
     options: {
     }
   },
-  framework: 'vue3',
+  framework: 'react',
   mini: {
     postcss: {
       pxtransform: {
