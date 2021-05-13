@@ -1,6 +1,6 @@
 {
   "miniprogramRoot": "dist/",
-  "projectname": "mmm",
+  "projectname": "mnb",
   "description": "",
   "appid": "wx26320e05beceb7a6",
   "setting": {
@@ -41,5 +41,25 @@
   "compileType": "miniprogram",
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},
-  "condition": {}
+  "libVersion": "2.14.1",
+  "condition": {
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "name": "pages/book/book",
+          "pathName": "pages/book/book",
+          "scene": null
+        }
+      ]
+    }
+  }
 }

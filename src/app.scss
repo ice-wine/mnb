@@ -1,0 +1,77 @@
+@import "./assets/style/mixin.scss";
+
+view {
+    box-sizing: border-box;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+.mt10{ margin-top: 10px;}
+.mt15{ margin-top: 15px;}
+.mt20{ margin-top: 20px;}
+.mb10{ margin-bottom: 10px;}
+.mb15{ margin-bottom: 15px;}
+.mb20{ margin-bottom: 20px;}
+.mtb15{ margin: 15px 0;}
+.ptb10{ padding: 10px 0;}
+.plr10{ padding: 0 10px;}
+.ptb15{ padding: 15px 0;}
+.plr15{ padding: 0 15px;}
+.pall10{ padding: 10px;}
+.pall15{ padding: 15px;}
+.pall20{ padding: 20px;}
+
+.primary {color: $color-brand;}
+.error { color: #eb3b5a; }
+.waring { color: #fa8231; }
+.yellow { color: #f7b731; }
+.green { color: #20bf6b; }
+.blue { color: #2d98da; }
+.gray { color: #a5b1c2; }
+
+.cursor {cursor: pointer;}
+.break { word-break:break-all; word-wrap:break-word}
+
+// 字体大小
+.font-big { font-size: 40px !important;}
+.font-medium { font-size: 36px !important;}
+.font-small { font-size: 26px !important;}
+.font-mini {font-size: 20px !important;}
+
+//单行省略...
+.single-ellipsis{ overflow: hidden; white-space: nowrap; text-overflow:ellipsis;}
+
+.flex{ display: flex;}
+.flex-1{ flex: 1;}
+.flex-2{ flex: 2;}
+.flex-3{ flex: 3;}
+.flex-4{ flex: 4;}
+/*      项目在 X  轴的【排列】方向    */
+.flex-row{ flex-direction: row;                        /* 主轴为水平方向，起点在左端   */}
+.flex-row-reverse{ flex-direction: row-reverse;        /* 主轴为水平方向，起点在右端   */}
+
+/*     在 X 轴上的【对齐】方式        */
+.justify-start{ justify-content: flex-start;             /*  默认：左对齐  */ }
+.justify-center{ justify-content: center;               /* 居中  */ }
+.justify-between{ justify-content: space-between;       /* 两端对齐，项目之间的间隔都相等    */ }
+.justify-around{ justify-content: space-around;         /*   每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍  */ }
+.justify-end{ justify-content: flex-end;                /*  右对齐 */ }
+
+/*      在 X 轴 上 【项目换行】 方式      */
+.flex-nowrap{ flex-wrap: nowrap;                        /*  （默认）：不换行 */  }
+.flex-wrap{ flex-wrap: wrap;                            /*  换行，第一行在上方 */  }
+.flex-reverse{ flex-wrap: wrap-reverse;                 /*  换行，第一行在下方*/  }
+
+/*      项目在 Y  轴的【排列】方向    -----------------------------------------------------                */
+.flex-column{ flex-direction: column;                  /* 主轴为垂直方向，起点在上沿   */}
+.flex-column-reverse{ flex-direction: column-reverse;  /* 主轴为垂直方向，起点在下沿  */}
+/*    -----  属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性    -----     */
+.align-start{align-self: flex-start;          /* 主轴为垂直方向，起点在上沿   */}
+.align-end{align-self: flex-end;          /* 主轴为垂直方向，起点在下沿   */}
+
+/*      在 Y 轴 上 【对齐】 方式      */
+.align-items-start{ align-items: flex-start;                   /*   Y轴的起点对齐  */}
+.align-items-end{ align-items: flex-end;                       /*   Y轴的终点对齐  */}
+.align-items-center{ align-items: center;                      /*   Y轴的中点对齐  */}
+.align-items-baseline{ align-items: baseline;                  /*   Y轴的项目的第一行文字的基线对齐  */}
+.align-items-stretch{ align-items: stretch;                    /*   Y轴如果项目未设置高度或设为auto，将占满整个容器的高度 */}

@@ -1,0 +1,23 @@
+@import "../../assets/style/mixin.scss";
+$list-count: 2;
+
+// 悬浮按钮
+.add-book {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+}
+// 正文
+.book-content {
+    padding: 20px;
+    column-count: $list-count;
+    column-gap: 20px;
+    .content-item {
+        padding: 20px;
+        margin-bottom: 20px;
+        break-inside: avoid;
+        background-color: $color-brand;
+        color: #ffffff;
+        border-radius: 20px;
+    }
+}

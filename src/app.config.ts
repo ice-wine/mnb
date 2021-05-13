@@ -1,11 +1,12 @@
 export default {
   pages: [
-    'pages/index/index'
+    'pages/index/index',
+    'pages/book/book',
   ],
   window: {
     backgroundTextStyle: 'light',
     navigationBarBackgroundColor: '#fff',
-    navigationBarTitleText: 'WeChat',
+    navigationBarTitleText: 'MNB',
     navigationBarTextStyle: 'black'
   }
 }

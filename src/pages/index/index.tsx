@@ -1,31 +1,45 @@
 import { Component } from 'react'
 import { View, Text } from '@tarojs/components'
-import { AtButton } from 'taro-ui'
+import { AtFab } from 'taro-ui'
+import Taro from '@tarojs/taro'
 
-import "taro-ui/dist/style/components/button.scss" // 按需引入
 import './index.scss'
-
 export default class Index extends Component {
 
-  componentWillMount () { }
+  componentWillMount() { }
 
-  componentDidMount () { }
+  componentDidMount() { }
 
-  componentWillUnmount () { }
+  componentWillUnmount() { }
 
-  componentDidShow () { }
+  componentDidShow() { }
 
-  componentDidHide () { }
+  componentDidHide() { }
 
-  render () {
+  goBookView(id) {
+    // 主题详情（区分 新建 & 查看）
+    let bookUrl = `/pages/book/book`
+    if (id) bookUrl = bookUrl + `?id=${id}`
+    Taro.navigateTo({
+      url: bookUrl
+    })
+  }
+
+  render() {
     return (
       <View className='index'>
-        <Text>Hello world!</Text>
-        <AtButton type='primary'>I need Taro UI</AtButton>
-        <Text>Taro UI 支持 Vue 了吗？</Text>
-        <AtButton type='primary' circle={true}>支持</AtButton>
-        <Text>共建？</Text>
-        <AtButton type='secondary' circle={true}>来</AtButton>
+        <View className='book-content'>
+          <View className='content-item' onClick={() => this.goBookView(1)}>
+            设立一个小目标，优秀优秀优秀
+          </View>
+          <View className='content-item'>嘻嘻</View>
+          <View className='content-item'>AAAAAAAAAAAAAAAAAAAAAAAAAA</View>
+          <View className='content-item'>奥术大师大所大所多撒大所sadasdasdas</View>
+          <View className='content-item'>嘻嘻1</View>
+        </View>
+        <AtFab className='add-book' onClick={() => this.goBookView(null)}>
+          <Text className='at-fab__icon at-icon at-icon-add'></Text>
+        </AtFab>
       </View>
     )
   }
