@@ -1,0 +1,36 @@
+@import "../../assets/style/mixin.scss";
+
+.time-line {
+    margin-left: 30px;
+    padding: 0 40px 0 30px;
+    border-left: 6px solid $color-brand;
+    .time-item {
+        position: relative;
+        margin-bottom: 40px;
+        .time-icon {
+            position: absolute;
+            left: -46px;
+            top: 10px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 6px solid $color-brand;
+            background-color: #fff;
+        }
+        .time-content {
+            padding: 20px;
+            border-radius: 16px;
+            border: 2px solid $color-brand;
+        }
+        .time-mark {
+            position: absolute;
+            right: -20px;
+            top: -20px;
+            padding: 8px 14px;
+            color: #fff;
+            background-color: $color-brand;
+            border-radius: 16px;
+            max-width: 50%;
+        }
+    }
+}
