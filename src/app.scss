@@ -57,7 +57,7 @@ view {
 .primary {
     color: $color-brand !important;
 }
-.error {
+.error,.danger{
     color: $theme-error !important;
 }
 .waring {
@@ -74,6 +74,9 @@ view {
 }
 .gray {
     color: $theme-gray !important;
+}
+.grey {
+    color: $theme-grey !important;
 }
 .black {
     color: $theme-black !important;
