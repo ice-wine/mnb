@@ -1,46 +1,84 @@
-import { Component } from 'react'
-import { View, Text } from '@tarojs/components'
-import { AtFab } from 'taro-ui'
-import Taro from '@tarojs/taro'
+import { Component } from "react";
+import Taro from "@tarojs/taro";
+import { View, Text } from "@tarojs/components";
+import { AtFab } from "taro-ui";
+import BookPop from "../components/bookPop/index";
 
-import './index.scss'
-export default class Index extends Component {
+import "./index.scss";
+export default class Index extends Component<any, any> {
+  BookPop = null;
 
-  componentWillMount() { }
+  constructor(props) {
+    super(props);
+    this.state = {
+      bookList: [
+        {
+          id: 1,
+          title: "新模板"
+        }
+      ]
+    };
+  }
 
-  componentDidMount() { }
+  componentWillMount() {}
 
-  componentWillUnmount() { }
+  componentDidMount() {}
 
-  componentDidShow() { }
+  componentWillUnmount() {}
 
-  componentDidHide() { }
+  componentDidShow() {}
 
+  componentDidHide() {}
+
+  // 输入赋值
+  handleChange = (attr, value) => {
+    this.setState({
+      [attr]: value
+    });
+  };
+  // 主题详情页
   goBookView(id) {
     // 主题详情（区分 新建 & 查看）
-    let bookUrl = `/pages/book/book`
-    if (id) bookUrl = bookUrl + `?id=${id}`
+    let bookUrl = `/pages/book/book?id=${id}`;
     Taro.navigateTo({
       url: bookUrl
-    })
+    });
   }
+
+  // 新建主题
+  addBookView = () => {
+    console.log("addBookView", this.BookPop);
+    this.BookPop.openBookPop();
+  };
+
+  onBookPopRef = ref => {
+    this.BookPop = ref;
+  };
+
+  // 获取所有主题
+  getBookList = () => {};
 
   render() {
     return (
-      <View className='index'>
-        <View className='book-content'>
-          <View className='content-item' onClick={() => this.goBookView(1)}>
-            设立一个小目标，优秀优秀优秀
-          </View>
-          <View className='content-item'>嘻嘻</View>
-          <View className='content-item'>AAAAAAAAAAAAAAAAAAAAAAAAAA</View>
-          <View className='content-item'>奥术大师大所大所多撒大所sadasdasdas</View>
-          <View className='content-item'>嘻嘻1</View>
+      <View className="index">
+        <View className="book-content">
+          {this.state.bookList.map(item => {
+            return (
+              <View
+                className="content-item"
+                onClick={() => this.goBookView(item.id)}
+                style="background-color:'#ff0000'"
+              >
+                {item.title}
+              </View>
+            );
+          })}
         </View>
-        <AtFab className='add-book' onClick={() => this.goBookView(null)}>
-          <Text className='at-fab__icon at-icon at-icon-add'></Text>
+        <AtFab className="add-book" onClick={() => this.addBookView()}>
+          <Text className="at-fab__icon at-icon at-icon-add"></Text>
         </AtFab>
+        <BookPop onRef={this.onBookPopRef}></BookPop>
       </View>
-    )
+    );
   }
 }

@@ -6,24 +6,31 @@ import {
   AtIcon,
   AtModal,
   AtActionSheet,
-  AtActionSheetItem
+  AtActionSheetItem,
+  AtListItem
 } from "taro-ui";
 import Taro, { getCurrentInstance } from "@tarojs/taro";
 import WPicker from "../../components/wPicker/index";
+import formatTime from "../../utils/globalPrototype";
+import BookPop from "../components/bookPop/index";
 
 import "./book.scss";
 
 export default class Book extends Component<any, any> {
   $instance = getCurrentInstance();
+  WPicker = null;
 
   constructor(props) {
     super(props);
     this.state = {
       pageStatus: 1, // 1. 新建 2.查看 3.编辑};
-      bookTitle: "", // 标题
-      bookContent: "", // 内容
+      bookInfo: {
+        id: 1,
+        title: "11",
+        content: "12121"
+      },
       // 弹框
-      isShowModal: true,
+      isShowModal: false,
       modalEvent: "",
       modalType: 1,
       modalMark: "",
@@ -50,7 +57,6 @@ export default class Book extends Component<any, any> {
     Taro.setNavigationBarTitle({
       title: `${barTitle}主题`
     });
-    this.WPicker.show();
   }
 
   componentWillUnmount() {}
@@ -59,12 +65,24 @@ export default class Book extends Component<any, any> {
 
   componentDidHide() {}
 
+  // 编辑主题
+  handleBookInfo = () => {
+    console.log("handleBookInfo", this.BookPop);
+    this.BookPop.openBookPop();
+  };
+
+  onBookPopRef = ref => {
+    this.BookPop = ref;
+  };
+
+  // 数据绑定
   handleChange = (attr, value) => {
     this.setState({
       [attr]: value
     });
   };
 
+  // 分值加减
   handleMark = type => {
     // type:1.添加 2.减去
     console.log("handleMark");
@@ -73,16 +91,22 @@ export default class Book extends Component<any, any> {
     });
   };
 
+  // 选择时间
+  openTimeRef = () => {
+    this.WPicker.show();
+  };
   onTimeRef = ref => {
     this.WPicker = ref;
   };
-
-  onTimeConfirm = (type, e) => {
-    console.log(e);
+  onTimeConfirm = (attr, e) => {
+    let val = e.value;
+    this.setState({
+      [attr]: val
+    });
   };
+  onTimeCancel = () => {};
 
-  onCancel = () => { };
-  
+  // 打开弹框
   handleModalOpen = init => {
     console.log("handleModalOpen---init", init);
     // 新建
@@ -90,17 +114,18 @@ export default class Book extends Component<any, any> {
       isShowModal: true,
       modalEvent: !init ? this.state.bookInfo.event || "" : "",
       modalType: !init ? this.state.bookInfo.markType || 1 : 1,
-      modalMark: !init ? this.state.bookInfo.mark || "" : ""
+      modalMark: !init ? this.state.bookInfo.mark || "" : "",
+      modalTime: !init
+        ? this.state.bookInfo.eventTime || ""
+        : formatTime(new Date(), "yyyy-MM-dd hh:mm:ss") // 获取当前时间
     });
   };
-
   handleModalClose = () => {
     console.log("handleModalClose");
     this.setState({
       isShowModal: false
     });
   };
-
   handleModalCancel = () => {
     console.log("handleModalCancel");
     this.setState({
@@ -114,6 +139,7 @@ export default class Book extends Component<any, any> {
     });
   };
 
+  // 对应记录操作
   handleOpenBookAction = bookInfo => {
     console.log("handleModalDel", this.state.bookInfo);
     this.setState({
@@ -121,7 +147,6 @@ export default class Book extends Component<any, any> {
       bookInfo
     });
   };
-
   handleBookEdit = () => {
     console.log("编辑", this.state.bookInfo);
     this.setState({
@@ -129,7 +154,6 @@ export default class Book extends Component<any, any> {
     });
     this.handleModalOpen(false);
   };
-
   handleBookDel = () => {
     console.log("删除", this.state.bookInfo);
     this.setState({
@@ -137,36 +161,20 @@ export default class Book extends Component<any, any> {
     });
   };
 
-  onTimeChange = e => {
-    this.setState({
-      timeSel: e.detail.value
-    });
-  };
-
   render() {
     return (
       <View className="book pall20">
-        <View>
-          <AtInput
-            required
-            title="主题"
-            type="text"
-            maxLength={50}
-            placeholder="请输入主题"
-            name="bookTitle"
-            value={this.state.bookTitle}
-            onChange={this.handleChange.bind(this, "bookTitle")}
-          />
-          <AtInput
-            title="内容"
-            type="text"
-            maxLength={300}
-            placeholder="请输入内容"
-            name="bookContent"
-            value={this.state.bookContent}
-            onChange={this.handleChange.bind(this, "bookContent")}
-          />
-        </View>
+        <AtListItem
+          title={this.state.bookInfo.title || "主题"}
+          note={this.state.bookInfo.content || "内容"}
+          arrow="right"
+          iconInfo={{
+            size: 25,
+            color: "#0fb9b1",
+            value: "bookmark"
+          }}
+          onClick={() => this.handleBookInfo()}
+        />
         <View className="flex justify-between mt20 pall20">
           <Text className="font-medium">记一记</Text>
           <AtIcon
@@ -259,7 +267,15 @@ export default class Book extends Component<any, any> {
                   onChange={this.handleChange.bind(this, "modalMark")}
                 />
               </View>
-              <View>{this.state.modalTime}</View>
+            </View>
+            <View className="flex-1" onClick={this.openTimeRef}>
+              <AtInput
+                name="modalTime"
+                type="number"
+                placeholder="选择时间"
+                value={this.state.modalTime}
+                onChange={this.handleChange.bind(this, "modalTime")}
+              />
             </View>
           </View>
           <View className="modal-action">
@@ -296,11 +312,16 @@ export default class Book extends Component<any, any> {
             current={true}
             fields="second"
             confirm={this.onTimeConfirm.bind(this, "modalTime")}
-            cancel={this.onCancel}
+            cancel={this.onTimeCancel}
             disabledAfter={false}
             onRef={this.onTimeRef}
           ></WPicker>
         </View>
+        {/* 主题弹框 */}
+        <BookPop
+          bookInfo={this.state.bookInfo}
+          onRef={this.onBookPopRef}
+        ></BookPop>
       </View>
     );
   }
